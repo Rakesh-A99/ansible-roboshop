@@ -21,7 +21,7 @@
   - name: downloading web artifact
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/web.zip
-      path: /tmp
+      dest: /tmp
 
   - name: unarchive web.zip
     ansible.builtin.unarchive:
