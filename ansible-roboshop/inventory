@@ -2,21 +2,21 @@
 mongodb.myroboshop.site
 
 [catalogue]
-172.31.37.81
+catalogue.myroboshop.site
 
 [web]
-172.31.36.42
+web.myroboshop.site
 
 [redis]
 redis.myroboshop.site
 
 [user]
 
-172.31.34.1
+user.myroboshop.site
 
 [cart]
 
-172.31.46.210
+cart.myroboshop.site
 
 [mysql]
 mysql.myroboshop.site
