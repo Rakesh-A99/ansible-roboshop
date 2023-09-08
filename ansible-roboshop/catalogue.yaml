@@ -37,9 +37,9 @@
       src: mongodb.repo
       dest: /etc/yum.repos.d/mongo.repo
   - name: installing mongodb client
-      ansible.builtin.yum:
-        name: mongodb-org-shell
-        state: installed
+    ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
 
   - name: load catalogue data
     ansible.builtin.command: mongo --host mongodb.myroboshop.site < /app/schema/catalogue.js
