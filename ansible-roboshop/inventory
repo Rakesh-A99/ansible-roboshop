@@ -10,9 +10,9 @@ web.myroboshop.site
 [redis]
 redis.myroboshop.site
 
-[user]
+[users]
 
-user.myroboshop.site
+users.myroboshop.site
 
 [cart]
 
