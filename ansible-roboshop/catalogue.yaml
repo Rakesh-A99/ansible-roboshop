@@ -7,8 +7,8 @@
 
   - name: checking roboshop user exists or not
     ansible.builtin.command: id roboshop
-      register: out
-      ignore_errors: true
+    register: out
+    ignore_errors: true
 
   - when: out.rc != 0   
     name : create user roboshop
@@ -29,7 +29,7 @@
       path: /app
       state: directory
     when: dir.stat.exists == false
-    
+
   - name: downloading the application code to created app directory.  
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
