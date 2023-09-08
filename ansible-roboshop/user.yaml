@@ -1,0 +1,78 @@
+- name: installing user component
+  hosts: catalogue
+  become: yes
+  tasks:
+  - name: installing nodesJS dependencies script
+    ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
+
+  - name: checking roboshop user exists or not
+    ansible.builtin.command: id roboshop
+    register: out
+    ignore_errors: true
+
+  - when: out.rc != 0   
+    name : create user roboshop
+    ansible.builtin.user:
+      name: roboshop
+
+  - name: check /app dir exists or not
+    ansible.builtin.stat:
+      path: /app
+    register: dir
+
+  - name: debug the /app
+    ansible.builtin.debug:
+      msg: "pritn {{dir}}"
+
+  - name: create /app dir
+    ansible.builtin.file:
+      path: /app
+      state: directory
+    when: dir.stat.exists == false
+
+  - name: downloading the application code to created app directory.  
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/user.zip
+      dest: /tmp
+
+  - name: extract catalogue artifact
+    ansible.builtin.unarchive:
+      src: /tmp/user.zip
+      dest: /app
+      remote_src: yes
+
+  - name: install dependencies
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app    
+
+  - name: copying the catalog service file
+    ansible.builtin.copy:
+      src: user.service
+      dest: /etc/systemd/system/user.service
+  - name: daemon reload
+    ansible.builtin.systemd:
+      daemon-reload: true
+  - name: user service start and enabling
+    ansible.builtin.service:
+      name: user
+      state: started
+      enabled: yes        
+  - name: copying the mongo repo
+    ansible.builtin.copy:
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  - name: installing mongodb client
+    ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
+
+  - name: load catalogue data
+    ansible.builtin.command: mongo --host mongodb.myroboshop.site < /app/schema/user.js
+
+  - name: restart catalogue
+    ansible.builtin.service:
+      name: user
+      state: restarted
+      enabled: true      
+         
