@@ -1,5 +1,5 @@
 - name: installing user component
-  hosts: catalogue
+  hosts: user
   become: yes
   tasks:
   - name: installing nodesJS dependencies script
