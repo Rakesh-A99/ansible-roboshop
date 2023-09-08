@@ -35,7 +35,7 @@
       url: https://roboshop-builds.s3.amazonaws.com/user.zip
       dest: /tmp
 
-  - name: extract catalogue artifact
+  - name: extract user artifact
     ansible.builtin.unarchive:
       src: /tmp/user.zip
       dest: /app
@@ -67,10 +67,10 @@
       name: mongodb-org-shell
       state: installed
 
-  - name: load catalogue data
+  - name: load user data
     ansible.builtin.command: mongo --host mongodb.myroboshop.site < /app/schema/user.js
 
-  - name: restart catalogue
+  - name: restart user
     ansible.builtin.service:
       name: user
       state: restarted
