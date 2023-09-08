@@ -1,5 +1,5 @@
-- name: instaling mongodb component
-  host: mongodb
+- name: installing mongodb component
+  hosts: mongodb
   become: yes
   tasks:
     - name: copying mongo repo
