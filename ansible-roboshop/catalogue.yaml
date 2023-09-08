@@ -18,7 +18,7 @@
   - name: check /app dir exists or not
     ansible.builtin.stat:
       path: /app
-      register: dir
+    register: dir
 
   - name: debug the /app
     ansible.builtin.debug:
