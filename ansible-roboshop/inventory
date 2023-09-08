@@ -5,7 +5,7 @@ mongodb.myroboshop.site
 172.31.37.81
 
 [web]
-172.31.43.21
+172.31.36.42
 
 [redis]
 redis.myroboshop.site
