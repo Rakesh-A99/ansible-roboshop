@@ -2,7 +2,7 @@
 mongodb.myroboshop.site
 
 [catalogue]
-catalogue.myroboshop.site
+172.31.37.81
 
 [web]
 web.myroboshop.site
@@ -11,10 +11,12 @@ web.myroboshop.site
 redis.myroboshop.site
 
 [user]
-user.myroboshop.site
+
+172.31.34.1
 
 [cart]
-cart.myroboshop.site
+
+172.31.46.210
 
 [mysql]
 mysql.myroboshop.site
