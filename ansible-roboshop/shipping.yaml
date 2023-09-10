@@ -11,6 +11,8 @@
     command: id roboshop
     register: output
     ignore_errors: yes  
+  
+  -name: print
     debug:
       msg: "print {{output}}"
 
