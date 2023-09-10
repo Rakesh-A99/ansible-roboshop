@@ -46,6 +46,7 @@
     unarcive:
       src: /tmp/shipping.zip
       dest: /app
+  - name: mvn commands  
     command: "{{item}}"
     loop:
     - mvn clean package
