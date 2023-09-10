@@ -23,6 +23,8 @@
     stat: 
       path: /app
     register: dir
+
+  - name: print  
     debug:
       msg: "print {{dir}}"
 
