@@ -52,13 +52,10 @@
       src: payment.service
       dest: /etc/systemd/system/payment.service
 
-  - name: daemon reload
-    systemd:
-      state: daemon-reload
-
   - name: start the service.                 
     service:
       name: payment
-      state: installed
+      daemon-reload: true
+      state: started
       enabled: yes
           
