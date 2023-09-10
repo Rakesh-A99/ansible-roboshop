@@ -1,0 +1,69 @@
+- name: installing shipping component
+  hosts: shipping
+  become: yes
+  tasks:
+  - name: installing maven
+    yum:
+      name: maven
+      state: installed
+
+  - name: check roboshop user exists or not
+    command: id roboshop
+    register: output
+    ignore_errors: yes  
+    debug:
+      msg: "print {{output}}"
+
+  - name: create roboshop user
+    user: 
+      name: roboshop
+    when: output.rc != 0 
+
+  - name: check /app exists or not
+    stat: 
+      path: /app
+    register: dir
+    debug:
+      msg: "print {{dir}}"
+
+  - name: create /app directory
+    when: dir.stat.presence == false
+    file:
+      path: /app
+      state: directory
+
+  - name: install shipping artifact
+    get_url:
+      url: "https://roboshop-builds.s3.amazonaws.com/shipping.zip"                  
+      dest: /tmp
+      remote_src: yes
+
+  - name: extracting artifact
+    unarcive:
+      src: /tmp/shipping.zip
+      dest: /app
+    command: "{{item}}"
+    loop:
+    - mvn clean package
+    - mv target/shipping-1.0.jar shipping.jar
+    args: 
+      chdir: /app  
+
+  - name: daemon-reload
+    systemd: 
+      daemon-reload: true
+
+  
+  - name: install mysql client 
+    yum:
+      name: mysql
+      state: installed
+
+  - name: Load Schema
+    command: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql     
+
+  - name: start the service
+    service:
+      name: shipping
+      state: started
+      enabled: true                
