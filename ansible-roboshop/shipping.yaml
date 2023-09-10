@@ -40,7 +40,6 @@
     get_url:
       url: https://roboshop-builds.s3.amazonaws.com/shipping.zip               
       dest: /tmp
-      remote_src: yes
 
   - name: extracting artifact
     unarchive:
