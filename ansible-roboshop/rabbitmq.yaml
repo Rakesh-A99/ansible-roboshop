@@ -3,10 +3,10 @@
   become: yes
   tasks:
   - name: Configure YUM Repos from the script provided by vendor.
-    shell: "https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash"
+    shell: "curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash"
 
   - name: Configure YUM Repos for RabbitMQ.
-    shell: "https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash"
+    shell: "curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash"
 
   - name: Install RabbitMQ
     yum:
