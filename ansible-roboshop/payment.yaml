@@ -24,8 +24,9 @@
     stat:
       path: /app
       register: directory
-    when: directory.stat.exist == false
+    
   - name: crreate app dire
+    when: directory.stat.exists == false
     file:
       path: /app
       state: directory
