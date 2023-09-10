@@ -43,10 +43,9 @@
       remote_src: yes
 
   - name: extracting artifact
-    unarcive:
+    unarchive:
       src: /tmp/shipping.zip
       dest: /app
-  - name: mvn commands  
     command: "{{item}}"
     loop:
     - mvn clean package
