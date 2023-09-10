@@ -1,0 +1,63 @@
+- name: installing payment module/component
+  hosts: payment
+  become: yes
+  tasks:
+  - name: installing python components
+    yum: 
+      name: {{"item"}}
+      state: installed
+    loop: 
+    - python36
+    - gcc
+    - python3-devel
+  - name: check roboshop user exists or not
+    command: id roboshop
+    register: out
+    ignore_errors: true
+
+  - name: condition
+    when: out.rc != 0
+    user: 
+      name: roboshop
+
+  - name: check /app dir exists or not
+    stat:
+      path: /app
+      register: directory
+    when: directory.stat.exist == false
+  - name: crreate app dire
+    file:
+      path: /app
+      state: directory
+
+  - name: installing payment artifact
+    get_url: 
+      url: https://roboshop-builds.s3.amazonaws.com/payment.zip
+      path: /tmp
+
+  - name: unarchive payment artifact
+    unarchive:
+      src: /tmp/payment.zip
+      dest: /app  
+      remote_src: yes
+
+  - name: dependencies in the application configuration
+    command: pip3.6 install -r requirements.txt
+    args:
+      chdir: /app
+
+  - name:  capying payment service
+    copy:
+      src: payment.service
+      dest: /etc/systemd/system/payment.service
+
+  - name: daemon reload
+    systemd:
+      state: daemon-reload
+
+  - name: start the service.                 
+    service:
+      name: payment
+      state: installed
+      enabled: yes
+          
