@@ -38,7 +38,7 @@
 
   - name: install shipping artifact
     get_url:
-      url: "https://roboshop-builds.s3.amazonaws.com/shipping.zip"                  
+      src: "https://roboshop-builds.s3.amazonaws.com/shipping.zip"                  
       dest: /tmp
       remote_src: yes
 
