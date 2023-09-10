@@ -34,7 +34,7 @@
   - name: installing payment artifact
     get_url: 
       url: https://roboshop-builds.s3.amazonaws.com/payment.zip
-      path: /tmp
+      dest: /tmp
 
   - name: unarchive payment artifact
     unarchive:
