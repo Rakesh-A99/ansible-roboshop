@@ -25,7 +25,7 @@ mysql.myroboshop.site
 shipping.myroboshop.site
 
 [rabbitmq]
-rabbitmq.myroboshop.site
+rabbit_mq.myroboshop.site
 
 [payment]
 payment.myroboshop.site
