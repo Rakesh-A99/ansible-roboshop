@@ -23,7 +23,7 @@
   - name: check /app dir exists or not
     stat:
       path: /app
-      register: directory
+    register: directory
     
   - name: crreate app dire
     when: directory.stat.exists == false
