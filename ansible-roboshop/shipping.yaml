@@ -31,7 +31,7 @@
       msg: "print {{dir}}"
 
   - name: create /app directory
-    when: dir.stat.presence == false
+    when: dir.stat.exists == false
     file:
       path: /app
       state: directory
